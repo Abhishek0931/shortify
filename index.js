@@ -11,7 +11,6 @@ import { redirect } from './controllers/urlController.js';
 dotenv.config();
 await connectDB();
 
-
 const app = express();
 
 app.use(cors({
@@ -29,9 +28,7 @@ app.get('/:code', redirect);
 app.get('/', (req, res) => res.send('shortify backend running...'));
 app.get('/api', (req, res) => res.send('API is running...'));
 
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
-
-
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+export default app;
