@@ -26,7 +26,7 @@ app.use('/api/users', userRoutes);
 app.use('/api/urls', urlRoutes);
 app.get('/:code', redirect); 
 
-app.get('/', (req, res) => res.send('multi-vendor-Ecommerece backend practice'));
+app.get('/', (req, res) => res.send('shortify backend running...'));
 app.get('/api', (req, res) => res.send('API is running...'));
 
 const PORT = process.env.PORT || 5000;

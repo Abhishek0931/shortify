@@ -25,3 +25,6 @@ uploads/
 # Build output
 dist/
 build/
+
+# Project info filess
+PROJECT_OVERVIEW.md

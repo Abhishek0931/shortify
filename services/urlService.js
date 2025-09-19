@@ -1,3 +1,4 @@
+
 import urlRepo from '../repository/urlRepo.js';
 
 function generateShortCode(length = 6) {
@@ -6,21 +7,25 @@ function generateShortCode(length = 6) {
 
 class UrlService {
     async shortenUrl(originalUrl, userId) {
-        let url = await urlRepo.findByOriginalUrl(originalUrl);
+        let url = await urlRepo.findByOriginalUrlAndUser(originalUrl, userId);
         if (url) return url;
 
         let shortCode;
-        // Ensure unique shortCode
+        // Ensure unique shortCode for this user
         do {
             shortCode = generateShortCode();
-        } while (await urlRepo.findByShortCode(shortCode));
+        } while (await urlRepo.findByShortCodeAndUser(shortCode, userId));
 
-        url = await urlRepo.createUrl({ originalUrl, shortCode, createdBy: userId });
+        url = await urlRepo.createUrlForUser(originalUrl, shortCode, userId);
         return url;
     }
 
-    async getOriginalUrl(shortCode) {
-        return urlRepo.findByShortCode(shortCode);
+    async getOriginalUrl(shortCode, userId) {
+        return urlRepo.findByShortCodeAndUser(shortCode, userId);
+    }
+
+    async getUserUrls(userId) {
+        return urlRepo.getUserUrls(userId);
     }
 }
 
